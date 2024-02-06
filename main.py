@@ -1,6 +1,7 @@
 import requests
 from bip39_words import bip39_words
 
+
 def get_card_from_set(set_code, card_number):
     """Busca uma carta específica de um conjunto na API do Scryfall."""
     url = f"https://api.scryfall.com/cards/{set_code}/{card_number}"
@@ -52,28 +53,27 @@ def find_card_by_word(word, set_codes):
     return set_code, card_number
 
 
-# Exemplo de uso
 set_codes = ['mkm', 'lci', 'woe', 'mom', 'one', 'bro', 'dmu', 'snc']  # Substitua por códigos reais dos conjuntos.
-set_code = 'woe'  # Código do conjunto que você quer consultar.
-card_number = 151  # Número da carta no conjunto.
+set_code = 'mkm'  # Código do conjunto que você quer consultar.
+card_number = 256  # Número da carta no conjunto.
 
-# Obtem a carta específica
-card_info = get_card_from_set(set_code, card_number)
-print(card_info.get('name'))
-print(card_info.get('image_uris').get('normal'))
 
-# Mapeia a carta para a palavra BIP-39
-word_index = map_card_to_word(set_codes, set_code, card_number)
-if word_index:
-    print(f"A carta {card_number} do conjunto {set_code} mapeia para a palavra número {word_index} da lista BIP-39.")
-else:
-    print("Número da palavra inválido ou fora do alcance.")
 
 # Encontra a carta com base na palavra BIP-39
-word = "fan"  # Palavra que você quer encontrar
-set_code, card_number = find_card_by_word(word, set_codes)
+words = ['fan', 'fly', 'spray', 'abandon']  # Palavra que você quer encontrar
 
-if set_code and card_number:
-    print(f"A palavra '{word}' corresponde à carta número {card_number} do conjunto {set_code}.")
-else:
-    print("Palavra não encontrada ou fora do alcance dos conjuntos definidos.")
+for word in words:
+    set_code, card_number = find_card_by_word(word, set_codes)
+
+    if set_code and card_number:
+        print(f"A palavra '{word}' corresponde à carta número {card_number} do conjunto {set_code}.")
+        card_info = get_card_from_set(set_code, card_number)
+        if card_info:
+            print(f"Nome da carta: {card_info['name']}")
+            print(f"Collector number: {card_info['collector_number']}")
+            print(f"Set code: {card_info['set']}")
+            print(f"Set name: {card_info['set_name']}")
+        else:
+            print("Carta não encontrada.")
+    else:
+        print("Palavra não encontrada ou fora do alcance dos conjuntos definidos.")
