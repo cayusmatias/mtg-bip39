@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container mt-4">
     <h2>MTG Cards to BIP39 Converter</h2>
-    <p>Select the number of cards and enter each card's number followed by the collection code (e.g., "Archangel of Wrath &lt;003&gt; [DMU]" should be entered as "003DMU").</p>
+    <p>Select the number of cards and enter each card's number followed by the collection code (e.g., "Archangel of Wrath &lt;003&gt; [dmu]" should be entered as "003dmu").</p>
     
     <div>
         <input type="radio" id="twelveCards" name="cardCount" value="12" onclick="updateCardInputs(12)" checked>
@@ -15,10 +15,15 @@
         <label for="twentyFourCards">24 Cards</label>
     </div>    
 
-    <form id="mtgForm" onsubmit="submitForm(); return false;">
+    <form id="mtgForm" onsubmit="submitForm(); return false;" autocomplete="off">
         <div id="cardInputsContainer" class="row mt-3"></div>
         <button type="submit" class="btn btn-primary mt-3">Convert</button>
     </form>
+
+    <div id="result" class="row mt-4" style="display: none;">
+        <h3 class="text-secondary">Decoded Mnemonic</h3>
+        <div id="conversionResult"></div>
+    </div>  
 </div>
 
 <script>
@@ -41,10 +46,29 @@
     function submitForm() {
         const inputs = document.querySelectorAll('#cardInputsContainer input');
         const cardValues = Array.from(inputs).map(input => input.value.trim()).join(' ');
-        console.log(cardValues); // For debugging, replace with actual submission logic
 
-        // Prevent form from submitting traditionally
-        event.preventDefault();
+        // URL do endpoint no servidor Flask
+        const url = '/convert-mtg2bip';
+
+        // Usando fetch para enviar os dados como texto puro
+        fetch(url, {
+            method: 'POST', // Método HTTP
+            headers: {
+                'Content-Type': 'text/plain', // Informa ao servidor o tipo de conteúdo
+            },
+            body: cardValues, // Envia a string diretamente
+        })
+        .then(response => response.text()) // Espera uma resposta como texto
+        .then(data => {
+            document.getElementById('result').style.display = 'block'; // Exibe o resultado
+            document.getElementById('conversionResult').innerHTML = data; // Atualiza a div com o resultado
+        })
+        .catch((error) => {
+            console.error('Error:', error); // Erro
+        });
+
+        event.preventDefault(); // Previne o comportamento padrão de submissão do formulário
     }
+
 </script>
 {% endblock %}

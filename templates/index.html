@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}BIP39 Mnemonic Alternative Storage{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Welcome to the BIP39 Mnemonic Alternative Storage Project</h1>
+    
+    <!-- Botões Centralizados -->
+    <div class="text-center my-4">
+        <a href="bip2mtg" class="btn btn-primary me-2">Convert BIP39 to MTG</a>
+        <a href="mtg2bip" class="btn btn-primary ms-2">Convert MTG to BIP39</a>
+    </div>
+    
+    <p>This project offers an alternative way to store your BIP39 mnemonic phrases. By leveraging the Scryfall API, we translate your mnemonic into a list of Magic: The Gathering cards, providing an innovative and memorable method to secure your cryptocurrency wallets.</p>
+    
+    <p>We are excited to announce that this project will be made publicly available on GitHub. This open-source approach allows anyone interested to contribute, review, and modify the code for their purposes.</p>
+    
+    <h2>MIT License</h2>
+    <p>The application is provided "as is", under the MIT License. This license permits reuse within proprietary software provided that all copies of the licensed software include a copy of the MIT License terms and conditions and attribute the original authors.</p>
+    
+    <h2>Early Stage Project</h2>
+    <p>Please be advised that this project is in its initial stages and has not yet been extensively tested by the community. It is not recommended to use this application for managing accounts with actual balances. Once the repository is available on GitHub, users are encouraged to download and run it locally with their data to ensure safety and privacy.</p>
+    
+    <h2>Special Thanks</h2>
+    <p>We would like to express our gratitude to <a href="https://scryfall.com" target="_blank">Scryfall</a> for making their API available, enabling us to develop this unique method of mnemonic storage. Their support has been invaluable to this project.</p>
+</div>
+{% endblock %}

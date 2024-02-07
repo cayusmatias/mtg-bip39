@@ -7,15 +7,31 @@
     <div class="row">
         <h2>BIP39 to MTG Converter</h2>
         <p>Enter your BIP39 words separated by spaces:</p>
-        <form hx-post="/convert-bip2mtg" hx-target="#conversionResult" method="post">
+        <form id="conversionForm" hx-post="/convert-bip2mtg" hx-target="#conversionResult" method="post">
             <div class="mb-3">
                 <textarea class="form-control" id="bip39Words" name="bip39Words" rows="3" placeholder="Enter BIP39 words here..."></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Convert</button>
+            <button type="submit" class="btn btn-primary" id="convertButton">Convert</button>
         </form>
     </div>
     <div class="row mt-4">
         <div id="conversionResult"></div>
     </div>
 </div>
+<script>
+    document.addEventListener('htmx:beforeRequest', function(event) {
+        if (event.target.id === 'conversionForm') {
+            const button = document.getElementById('convertButton');
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        }
+    });
+    document.addEventListener('htmx:afterRequest', function(event) {
+        if (event.target.id === 'conversionForm') {
+            const button = document.getElementById('convertButton');
+            button.disabled = false;
+            button.innerHTML = 'Convert';
+        }
+    });
+    </script>
 {% endblock %}

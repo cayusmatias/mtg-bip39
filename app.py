@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return render_template('base.html')
+    return render_template('index.html')
 
 
 @app.route('/bip2mtg')
@@ -25,7 +25,6 @@ from flask import Flask, request, render_template_string
 @app.route('/convert-bip2mtg', methods=['POST'])
 def convert_bip2mtg():
     bip39_words = request.form['bip39Words']
-    # Sua lógica de conversão vai aqui. Exemplo:
     mtg_cards = ''
     mtg_cards_imgs = ''
     for word in bip39_words.split():
@@ -38,7 +37,7 @@ def convert_bip2mtg():
                 mtg_cards_imgs += f"<img class='zoom-hover' src='{card_info['image_uris']['normal']}' alt='{card_name}'>"
                      
     conversion_result = mtg_cards
-    # Retorna o resultado que será diretamente inserido no hx-target
+    
     return render_template_string("""<div class='row'>
                                         <div class='col-md-4'>
                                             <h3 class='text-secondary'>Cards List</h3>
@@ -49,6 +48,19 @@ def convert_bip2mtg():
                                         </div>
                                      </div>""", 
                                   conversion_result=conversion_result, mtg_cards_imgs=mtg_cards_imgs)
+
+
+@app.route('/convert-mtg2bip', methods=['POST'])
+def convert_mtg2bip():
+    cards = request.data.decode('utf-8').split()
+    mnemonic = ''
+    for card in cards:
+        card_number, set_code = int(card[0:3]), card[3:]
+        word = map_card_to_word(SET_CODES, set_code, card_number)
+        if word:
+            mnemonic += bip39_words[word - 1] + ' '
+
+    return mnemonic
 
 
 if __name__ == '__main__':
