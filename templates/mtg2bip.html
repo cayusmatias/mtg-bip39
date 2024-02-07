@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}MTG Cards to BIP39 Converter{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>MTG Cards to BIP39 Converter</h2>
+    <p>Select the number of cards and enter each card's number followed by the collection code (e.g., "Archangel of Wrath &lt;003&gt; [DMU]" should be entered as "003DMU").</p>
+    
+    <div>
+        <input type="radio" id="twelveCards" name="cardCount" value="12" onclick="updateCardInputs(12)" checked>
+        <label for="twelveCards">12 Cards</label>
+        
+        <input type="radio" id="twentyFourCards" name="cardCount" value="24" onclick="updateCardInputs(24)" class="ms-2">
+        <label for="twentyFourCards">24 Cards</label>
+    </div>    
+
+    <form id="mtgForm" onsubmit="submitForm(); return false;">
+        <div id="cardInputsContainer" class="row mt-3"></div>
+        <button type="submit" class="btn btn-primary mt-3">Convert</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCardInputs(12); // Initialize with 12 inputs on page load
+    });
+
+    function updateCardInputs(value) {
+        const container = document.getElementById('cardInputsContainer');
+        container.innerHTML = ''; // Clear existing inputs
+        for (let i = 1; i <= value; i++) {
+            const inputHtml = `<div class="col-md-3 mb-2">
+                                    <label for="card${i}">Card ${i}: </label>
+                                    <input type="text" id="card${i}" name="card${i}" class="form-control">
+                                </div>`;
+            container.innerHTML += inputHtml;
+        }
+    }
+
+    function submitForm() {
+        const inputs = document.querySelectorAll('#cardInputsContainer input');
+        const cardValues = Array.from(inputs).map(input => input.value.trim()).join(' ');
+        console.log(cardValues); // For debugging, replace with actual submission logic
+
+        // Prevent form from submitting traditionally
+        event.preventDefault();
+    }
+</script>
+{% endblock %}

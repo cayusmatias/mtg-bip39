@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MTG-Bip39{% endblock %}</title>
+    <!-- Bootswatch Vapor CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5/dist/vapor/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<style>
+    .zoom-hover {
+    transition: transform 0.3s ease;
+    width: 150px; /* Largura inicial */
+    display: inline-block; /* Para garantir que o transform funcione corretamente */
+    }
+
+    .zoom-hover:hover {
+        transform: scale(2);
+    }
+</style>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">MTG-Bip39</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/"><i class="fa-solid fa-house"></i>
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="bip2mtg">Bip39 to MTG Cards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="mtg2bip">MTG Cards to Bip39</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}
+        <!-- O conteúdo da página vai aqui -->
+        {% endblock %}
+    </div>
+
+    <!-- Opção: incluir jQuery e Bootstrap JS para funcionalidades do navbar em dispositivos móveis -->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

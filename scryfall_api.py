@@ -1,5 +1,6 @@
 import requests
 from bip39_words import bip39_words
+from config import SET_CODES
 
 
 def get_card_from_set(set_code, card_number):
@@ -54,24 +55,22 @@ def find_card_by_word(word, set_codes):
     return set_code, card_number
 
 
-set_codes = ['mkm', 'lci', 'woe', 'mom', 'one', 'bro', 'dmu', 'snc']  # Replace with actual set codes.
-
 # Finds the card based on a BIP-39 word
-words = ['fan', 'fly', 'spray', 'abandon', 'eye', 'vicious']  # The word bip-39 you want to find
+# words = ['scare', 'around', 'wear', 'struggle', 'sand', 'alert', 'cable', 'sadness', 'hint', 'connect', 'fog', 'run']  # The word bip-39 you want to find
 
-for word in words:
-    set_code, card_number = find_card_by_word(word, set_codes)
+# for word in words:
+#     set_code, card_number = find_card_by_word(word, SET_CODES)
 
-    if set_code and card_number:
-        card_info = get_card_from_set(set_code, card_number)
-        if card_info:
-            card_name = card_info['name']
-            card_set = card_info['set']
-            card_set_name = card_info['set_name']
-            card_collector_number = card_info['collector_number']
-            card_image_url = card_info['image_uris']['normal']
-            print(f"Card found: {card_name} ({card_set_name} - {card_set}) ({card_collector_number})")
-        else:
-            print("Card not found.")
-    else:
-        print("Word not found or out of the defined sets' range.")
+#     if set_code and card_number:
+#         card_info = get_card_from_set(set_code, card_number)
+#         if card_info:
+#             card_name = card_info['name']
+#             card_set = card_info['set']
+#             card_set_name = card_info['set_name']
+#             card_collector_number = card_info['collector_number']
+#             card_image_url = card_info['image_uris']['normal']
+#             print(f"{card_name} <{card_collector_number}> [{card_set}] ")
+#         else:
+#             print("Card not found.")
+#     else:
+#         print("Word not found or out of the defined sets' range.")
