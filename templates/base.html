@@ -23,14 +23,10 @@
     .zoom-hover:hover {
         transform: scale(2);
     }
-
-    footer {
-        padding: 1rem 0; /* Padding superior e inferior para o footer */
-    }
 </style>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
+        <div class="container-fluid mb-auto">
             <a class="navbar-brand" href="/">MTG-Bip39</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,8 +55,10 @@
         {% endblock %}
     </div>
 
-    <footer class="text-center mt-4 mb-3">
-        <p>Check out the project on GitHub: <a href="https://github.com/cayusmatias" target="_blank">cayusmatias</a></p>
+    <footer class="mt-auto bg-dark text-center">
+        <div class="container py-3">
+            Check out the project on GitHub: <a href="https://github.com/cayusmatias" target="_blank">cayusmatias</a>
+        </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
