@@ -15,6 +15,9 @@ The collections used in this project are:
 7. DMU (Dominaria United)
 8. SNC (Streets of New Capenna)
 
+Experience our project in action by visiting the demo at [mtg-bip39](https://bip39.cayus.com.br).
+
+
 ## Features
 
 - Direct association of BIP-39 words with specific MTG cards through an offset system based on selected collections.

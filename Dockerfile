@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8084
 
-CMD ["gunicorn", "-b", "0.0.0.0:8084", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:8083", "app:app"]
