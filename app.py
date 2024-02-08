@@ -52,12 +52,16 @@ def convert_bip2mtg():
 def convert_mtg2bip():
     cards = request.data.decode('utf-8').split()
     mnemonic = ''
-    for card in cards:
+    for index, card in enumerate(cards):
         card = card.zfill(6).lower()
         card_number, set_code = int(card[0:3]), card[3:]
-        word = map_card_to_word(SET_CODES, set_code, card_number)
-        if word:
-            mnemonic += bip39_words[word - 1] + ' '
+        # verify if set_code is valid
+        if set_code in SET_CODES:
+            word = map_card_to_word(SET_CODES, set_code, card_number)
+            if word:
+                mnemonic += bip39_words[word - 1] + ' '
+        else:
+            return f"Invalid set code: '{set_code}' in card {index + 1}"
 
     return mnemonic
 

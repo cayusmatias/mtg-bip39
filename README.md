@@ -2,7 +2,7 @@
 
 ## Description
 
-Magic BIP-39 Mapper is a project that bridges the world of Magic: The Gathering (MTG) and cryptocurrency security using the BIP-39 list. Through an innovative method, the project associates words from the BIP-39 list, used to generate cryptocurrency wallet seeds, with specific MTG cards. This mapping is carried out using eight specific MTG collections, each containing at least 256 cards, allowing a direct correspondence between each word from the BIP-39 list and a unique card within these collections.
+Magic BIP-39 Mapper is a project that bridges the world of Magic: The Gathering (MTG) and cryptocurrency security using the BIP-39 list. Through an innovative method, the project associates words from the BIP-39 list, used to generate bitcoin wallet seeds, with specific MTG cards. This mapping is carried out using eight specific MTG collections, each containing at least 256 cards, allowing a direct correspondence between each word from the BIP-39 list and a unique card within these collections.
 
 The collections used in this project are:
 
