@@ -35,15 +35,51 @@ This project requires Python 3.x.
 
 ## Usage
 
-...
+This section guides you through getting the application up and running on your local machine. There are two ways to run the application: directly using Python Flask or within a Docker container.
 
-## Code Example
+### Running with Python Flask
 
-...
+1. **Clone the Repository**
 
-## Contributions
+Clone the repository to your local machine using Git:
 
-...
+```bash
+git clone https://github.com/cayusmatias/mtg-bip39.git
+cd mtg-bip39
+```
+
+Set Up a Virtual Environment
+
+Create a virtual environment for the project (if you don't have virtualenv installed, you can install it using pip):
+```bash
+pip install virtualenv
+virtualenv venv
+
+# On Windows
+venv\Scripts\activate
+# On Unix or MacOS
+source venv/bin/activate
+```
+
+Install Dependencies
+
+Install all required dependencies with:
+```bash
+pip install -r requirements.txt
+```
+
+Start the application with Flask:
+```bash
+flask run
+```
+
+Running with Docker
+
+You can start the application with Docker Compose:
+
+```bash
+docker-compose up --build
+```
 
 ## Credits
 
