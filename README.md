@@ -27,7 +27,7 @@ This project requires Python 3.x.
 
 ## Setup
 
-# BIP39 Mnemonic to Magic: The Gathering Card Mapping Logic
+### BIP39 Mnemonic to Magic: The Gathering Card Mapping Logic
 
 This application maps BIP39 mnemonic words to Magic: The Gathering (MTG) cards using a unique logic based on set codes and card indices. Here's an overview of how the mapping process works:
 
@@ -99,6 +99,34 @@ You can start the application with Docker Compose:
 ```bash
 docker-compose up --build
 ```
+
+## Upcoming Features
+
+In our commitment to continuously improve and secure our application, we are excited to share the roadmap for upcoming features. These enhancements are designed to provide a more robust, efficient, and secure experience for our users:
+
+### Local Database Population
+
+- **SQLite3 Database Integration**: We plan to introduce the capability to populate a local SQLite3 database with the set data configured in `config.py`. This feature aims to streamline the process of managing and accessing MTG card data within the application, reducing dependencies on external APIs for data retrieval.
+
+### Local Card Data Storage
+
+- **Downloading Cards to Static Folder**: To further enhance data privacy and application performance, we will implement functionality to download card images and details directly into the application's `static` folder. This move towards exclusively local data storage minimizes the security risks associated with external API calls and ensures that card data is readily available for faster access and display.
+
+### Security and Performance Enhancements
+
+- **Minimizing API Dependency**: By storing card data locally, we significantly reduce the number of calls made to the Scryfall API, decreasing potential exposure to security vulnerabilities and enhancing overall application performance.
+- **Local Data Management**: Users will gain greater control over their data, with the ability to manage and update their local card database as new sets are released or as their needs change.
+
+### Downloadable PDF for Printing Proxies
+
+- **Real-Size Card PDFs**: A significant addition to our suite of features will be the capability for users to download a PDF containing the cards in real size. This will allow enthusiasts to print out proxy cards for Magic: The Gathering and store them in a physical deck if they don't have the original card.
+
+### Looking Ahead
+
+These features are part of our broader vision to make the application self-sufficient and secure. We understand the importance of data privacy and are dedicated to providing solutions that respect user autonomy while delivering the rich functionality that our community values.
+
+Stay tuned for updates as we progress in implementing these exciting features. Your feedback and suggestions are always welcome as we strive to make this application better for everyone.
+
 
 ## Credits
 

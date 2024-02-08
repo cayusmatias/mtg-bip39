@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, render_template_string, request
 from config import SET_CODES
 from scryfall_api import *
 
@@ -20,11 +20,9 @@ def mtg2bip():
     return render_template('mtg2bip.html')
 
 
-from flask import Flask, request, render_template_string
-
 @app.route('/convert-bip2mtg', methods=['POST'])
 def convert_bip2mtg():
-    bip39_words = request.form['bip39Words']
+    bip39_words = request.form['bip39Words'].lower()
     mtg_cards = ''
     mtg_cards_imgs = ''
     for word in bip39_words.split():
@@ -55,6 +53,7 @@ def convert_mtg2bip():
     cards = request.data.decode('utf-8').split()
     mnemonic = ''
     for card in cards:
+        card = card.zfill(6).lower()
         card_number, set_code = int(card[0:3]), card[3:]
         word = map_card_to_word(SET_CODES, set_code, card_number)
         if word:
