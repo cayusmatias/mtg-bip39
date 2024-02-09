@@ -1,6 +1,7 @@
 from flask import Flask, render_template, render_template_string, request
 from config import SET_CODES
 from scryfall_api import *
+import time
 
 app = Flask(__name__)
 
@@ -26,6 +27,7 @@ def convert_bip2mtg():
     mtg_cards = ''
     mtg_cards_imgs = ''
     for word in bip39_words.split():
+        time.sleep(0.05)
         set_code, card_number = find_card_by_word(word, SET_CODES)
         if set_code and card_number:
             card_info = get_card_from_set(set_code, card_number)
@@ -63,7 +65,7 @@ def convert_mtg2bip():
             return f"Invalid card number: '{card[0:3]}' in card {index + 1}"
         
         set_code = card[3:]
-        
+
         # verify if set_code is valid
         if set_code in SET_CODES:
             word = map_card_to_word(SET_CODES, set_code, card_number)
