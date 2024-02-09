@@ -54,7 +54,16 @@ def convert_mtg2bip():
     mnemonic = ''
     for index, card in enumerate(cards):
         card = card.zfill(6).lower()
-        card_number, set_code = int(card[0:3]), card[3:]
+        try:
+            card_number = int(card[0:3])
+            #check if card number is 1 to 256
+            if card_number < 1 or card_number > 256:
+                return f"Invalid card number: '{card_number}' in card {index + 1}"
+        except ValueError:
+            return f"Invalid card number: '{card[0:3]}' in card {index + 1}"
+        
+        set_code = card[3:]
+        
         # verify if set_code is valid
         if set_code in SET_CODES:
             word = map_card_to_word(SET_CODES, set_code, card_number)
