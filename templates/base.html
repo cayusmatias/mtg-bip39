@@ -14,15 +14,17 @@
         font-family: 'Consolas', 'Monaco', 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Courier New', monospace;
     }
 
-    .zoom-hover {
+.zoom-hover {
     transition: transform 0.3s ease;
     width: 150px;
     display: inline-block;
-    }
+}
 
+@media (min-width: 600px) {
     .zoom-hover:hover {
         transform: scale(2);
     }
+}
 </style>
 <body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">

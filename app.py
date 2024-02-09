@@ -36,7 +36,7 @@ def convert_bip2mtg():
                      
     conversion_result = mtg_cards
     
-    return render_template_string("""<div class='row'>
+    return render_template_string("""<div class='row mb-4'>
                                         <div class='col-md-4'>
                                             <h3 class='text-secondary'>Cards List</h3>
                                             <ol>{{ conversion_result|safe }}</ol>
