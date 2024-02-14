@@ -35,7 +35,10 @@ def convert_bip2mtg():
                 card_name, set_code, card_number = card_info['name'], set_code, card_number
                 mtg_cards += f"<li>{card_name} <{str(card_number).zfill(3)}> [{set_code}]</li>"
                 if 'card_faces' in card_info:
-                    mtg_cards_imgs += f"<img class='zoom-hover rounded-3' src='{card_info['card_faces'][0]['image_uris']['normal']}' alt='{card_name}'>"
+                    try:
+                        mtg_cards_imgs += f"<img class='zoom-hover rounded-3' src='{card_info['card_faces'][0]['image_uris']['normal']}' alt='{card_name}'>"
+                    except KeyError:
+                        mtg_cards_imgs += f"<img class='zoom-hover rounded-3' src='{card_info['image_uris']['normal']}' alt='{card_name}'>"
                 else:
                     mtg_cards_imgs += f"<img class='zoom-hover rounded-3' src='{card_info['image_uris']['normal']}' alt='{card_name}'>"
                      
