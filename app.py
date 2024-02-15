@@ -1,9 +1,14 @@
 from flask import Flask, render_template, render_template_string, request
-from config import SET_CODES
+from config import SET_CODES, ENV
 from scryfall_api import *
 import time
 
 app = Flask(__name__)
+
+
+@app.context_processor
+def inject_env():
+    return dict(ENV=ENV)
 
 
 @app.route('/')
@@ -84,4 +89,7 @@ def convert_mtg2bip():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if ENV == 'prod':
+        app.run(host='0.0.0.0', port=5000)
+    else:
+        app.run(debug=True)

@@ -52,7 +52,16 @@
             </div>
         </div>
     </nav>
-
+    <div class="container mt-4">
+        {% if ENV=='dev' %}
+        <div class="card border-warning">
+            <div class="card-body">
+                <h4 class="card-title text-warning">Warning</h4>
+                <p class="card-text  text-warning">This page is for demonstration purposes only. Do not use it with mnemonics from an actual wallet with a balance. Consider running the project locally on your computer.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
     <div class="container mt-4">
         {% block content %}
         {% endblock %}
