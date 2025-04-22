@@ -3,27 +3,94 @@
 {% block title %}MTG Cards to BIP39 Converter{% endblock %}
 
 {% block content %}
-<div class="mt-4 mb-4">
-    <h2>MTG Cards to BIP39 Converter</h2>
-    <p>Select the number of cards and enter each card's number followed by the collection code (e.g., "Archangel of Wrath &lt;003&gt; [dmu]" should be entered as "003dmu").</p>
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-magic text-bitcoin-primary mb-2">MTG Cards to BIP39 Converter</h1>
+        <div class="w-24 h-1 bg-bitcoin-primary mx-auto mb-6 rounded-full"></div>
+        <p class="text-gray-300">Convert your Magic: The Gathering cards back to a Bitcoin mnemonic phrase</p>
+    </div>
     
-    <div>
-        <input type="radio" id="twelveCards" name="cardCount" value="12" onclick="updateCardInputs(12)" checked>
-        <label for="twelveCards">12 Cards</label>
+    <!-- MTG Card Frame Design -->
+    <div class="bg-gradient-to-b from-gray-800 to-mtg-black rounded-xl overflow-hidden shadow-2xl border border-mtg-blue/30 mb-10">
+        <div class="bg-gradient-to-r from-mtg-blue to-mtg-black px-4 py-2">
+            <h2 class="font-magic text-gray-200">Card Collection Input</h2>
+        </div>
         
-        <input type="radio" id="twentyFourCards" name="cardCount" value="24" onclick="updateCardInputs(24)" class="ms-2">
-        <label for="twentyFourCards">24 Cards</label>
-    </div>    
-
-    <form id="mtgForm" onsubmit="submitForm(); return false;" autocomplete="off">
-        <div id="cardInputsContainer" class="row mt-3"></div>
-        <button type="submit" class="btn btn-primary mt-3">Convert</button>
-    </form>
-
-    <div id="result" class="row mt-4 mb-4" style="display: none;">
-        <h3 class="text-secondary">Decoded Mnemonic</h3>
-        <div id="conversionResult"></div>
-    </div>  
+        <div class="p-6">
+            <p class="text-gray-300 mb-4">Select the number of cards and enter each card's number followed by the collection code (e.g., "Archangel of Wrath &lt;003&gt; [dmu]" should be entered as "003dmu").</p>
+            
+            <div class="flex items-center mb-6 space-x-4">
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" id="twelveCards" name="cardCount" value="12" onclick="updateCardInputs(12)" checked class="hidden peer">
+                    <div class="w-24 h-8 flex items-center justify-center rounded-lg bg-gray-700 peer-checked:bg-bitcoin-primary text-gray-300 peer-checked:text-mtg-black font-semibold transition-all whitespace-nowrap">
+                        12 Cards
+                    </div>
+                </label>
+                
+                <label class="inline-flex items-center cursor-pointer">
+                    <input type="radio" id="twentyFourCards" name="cardCount" value="24" onclick="updateCardInputs(24)" class="hidden peer">
+                    <div class="w-24 h-8 flex items-center justify-center rounded-lg bg-gray-700 peer-checked:bg-bitcoin-primary text-gray-300 peer-checked:text-mtg-black font-semibold transition-all whitespace-nowrap">
+                        24 Cards
+                    </div>
+                </label>
+            </div>
+            
+            <form id="mtgForm" onsubmit="submitForm(); return false;" autocomplete="off">
+                <div id="cardInputsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mb-6"></div>
+                
+                <button 
+                    type="submit" 
+                    class="bg-gradient-to-r from-mtg-blue to-bitcoin-primary hover:from-bitcoin-primary hover:to-mtg-blue text-gray-100 font-bold py-2 px-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-105 w-full">
+                    <i class="fa-solid fa-key mr-2"></i>Convert to BIP39 Mnemonic
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Results Container -->
+    <div id="result" class="mb-10 hidden">
+        <div class="bg-gradient-to-br from-gray-900 to-mtg-black rounded-xl overflow-hidden shadow-xl border border-bitcoin-primary/30">
+            <div class="bg-gradient-to-r from-bitcoin-primary to-yellow-600 px-4 py-2">
+                <h3 class="font-magic text-mtg-black">Decoded Mnemonic</h3>
+            </div>
+            
+            <div class="p-6">
+                <div id="conversionResult" class="text-gray-200 bg-gray-900/50 p-4 rounded-lg font-mono border border-gray-700 break-words"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card Input Guide -->
+    <div class="bg-gradient-to-br from-gray-900 to-mtg-black rounded-xl p-6 shadow-xl mb-10">
+        <h2 class="text-xl font-magic text-bitcoin-primary mb-4">How to Input Card Information</h2>
+        
+        <div class="bg-gray-900/70 rounded-lg p-4 mb-6 border border-gray-700">
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-4">
+                <div class="text-2xl text-gray-300 mr-2">
+                    <i class="fa-solid fa-circle-info text-mtg-blue"></i>
+                </div>
+                <div>
+                    <p class="text-gray-300 mb-2">For the card <span class="text-bitcoin-primary font-semibold">Archangel of Wrath &lt;003&gt; [dmu]</span></p>
+                    <p class="text-gray-300">Enter: <span class="bg-gray-800 text-mtg-blue px-2 py-1 rounded font-mono">003dmu</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="space-y-3 text-gray-300">
+            <div class="flex items-start">
+                <div class="text-mtg-blue mr-3"><i class="fa-solid fa-hashtag"></i></div>
+                <p>Enter the 3-digit card number (with leading zeros if needed)</p>
+            </div>
+            <div class="flex items-start">
+                <div class="text-mtg-blue mr-3"><i class="fa-solid fa-code"></i></div>
+                <p>Followed immediately by the 3-letter set code (lowercase)</p>
+            </div>
+            <div class="flex items-start">
+                <div class="text-mtg-blue mr-3"><i class="fa-solid fa-circle-exclamation"></i></div>
+                <p>Do not include spaces, brackets, or any other characters</p>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -34,11 +101,19 @@
     function updateCardInputs(value) {
         const container = document.getElementById('cardInputsContainer');
         container.innerHTML = ''; // Clear existing inputs
+        
         for (let i = 1; i <= value; i++) {
-            const inputHtml = `<div class="col-md-3 mb-2">
-                                    <label for="card${i}">Card ${i}: </label>
-                                    <input type="text" id="card${i}" name="card${i}" class="form-control">
-                                </div>`;
+            const inputHtml = `
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <span class="text-sm text-gray-400">${i}</span>
+                    </div>
+                    <input type="text" 
+                           id="card${i}" 
+                           name="card${i}" 
+                           placeholder="000xxx"
+                           class="w-full bg-gray-900 text-gray-200 border border-gray-700 rounded-lg py-2 pl-8 pr-3 focus:outline-none focus:ring-2 focus:ring-mtg-blue/50 focus:border-transparent">
+                </div>`;
             container.innerHTML += inputHtml;
         }
     }
@@ -50,6 +125,12 @@
         // URL do endpoint no servidor Flask
         const url = '/convert-mtg2bip';
 
+        // Show loading state
+        const submitButton = document.querySelector('#mtgForm button[type="submit"]');
+        const originalButtonText = submitButton.innerHTML;
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
+
         // Usando fetch para enviar os dados como texto puro
         fetch(url, {
             method: 'POST', // Método HTTP
@@ -60,15 +141,29 @@
         })
         .then(response => response.text()) // Espera uma resposta como texto
         .then(data => {
-            document.getElementById('result').style.display = 'block'; // Exibe o resultado
+            document.getElementById('result').classList.remove('hidden'); // Exibe o resultado
             document.getElementById('conversionResult').innerHTML = data; // Atualiza a div com o resultado
+            
+            // Scroll to result
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
         })
         .catch((error) => {
             console.error('Error:', error); // Erro
+            
+            // Reset button state
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+            
+            // Show error message
+            document.getElementById('result').classList.remove('hidden');
+            document.getElementById('conversionResult').innerHTML = '<div class="text-red-500"><i class="fa-solid fa-triangle-exclamation mr-2"></i>An error occurred while processing your request. Please try again.</div>';
         });
 
         event.preventDefault(); // Previne o comportamento padrão de submissão do formulário
     }
-
 </script>
 {% endblock %}

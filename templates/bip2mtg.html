@@ -3,35 +3,96 @@
 {% block title %}BIP39 to MTG Converter{% endblock %}
 
 {% block content %}
-<div class="mt-4">
-    <div class="row">
-        <h2>BIP39 to MTG Converter</h2>
-        <p>Enter your BIP39 words separated by spaces:</p>
-        <form id="conversionForm" hx-post="/convert-bip2mtg" hx-target="#conversionResult" method="post">
-            <div class="mb-3">
-                <textarea class="form-control" id="bip39Words" name="bip39Words" rows="3" placeholder="Enter BIP39 words here..."></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary" id="convertButton">Convert</button>
-        </form>
+<div class="max-w-4xl mx-auto">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-magic text-bitcoin-primary mb-2">BIP39 to MTG Converter</h1>
+        <div class="w-24 h-1 bg-bitcoin-primary mx-auto mb-6 rounded-full"></div>
+        <p class="text-gray-300">Convert your Bitcoin mnemonic phrase into a collection of Magic: The Gathering cards</p>
     </div>
-    <div class="row mt-4">
-        <div id="conversionResult"></div>
+    
+    <!-- MTG Card Frame Design -->
+    <div class="bg-gradient-to-b from-gray-800 to-mtg-black rounded-xl overflow-hidden shadow-2xl border border-bitcoin-primary/30 mb-10">
+        <div class="bg-gradient-to-r from-bitcoin-primary to-yellow-600 px-4 py-2">
+            <h2 class="font-magic text-mtg-black">Mnemonic Conversion</h2>
+        </div>
+        
+        <div class="p-6">
+            <p class="text-gray-300 mb-4">Enter your BIP39 words separated by spaces:</p>
+            
+            <form id="conversionForm" hx-post="/convert-bip2mtg" hx-target="#conversionResult" method="post" class="mb-6">
+                <div class="mb-4">
+                    <textarea 
+                        class="w-full bg-gray-900 text-gray-200 border border-gray-700 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-bitcoin-primary/50 focus:border-transparent" 
+                        id="bip39Words" 
+                        name="bip39Words" 
+                        rows="3" 
+                        placeholder="abandon ability able about above absent absorb abstract absurd abuse access accident..."></textarea>
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="bg-gradient-to-r from-bitcoin-primary to-yellow-600 hover:from-yellow-600 hover:to-bitcoin-primary text-mtg-black font-bold py-2 px-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-105 w-full md:w-auto"
+                    id="convertButton">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Convert to MTG Cards
+                </button>
+            </form>
+            
+            <div class="text-sm text-gray-400 mb-4">
+                <div class="flex items-start mb-2">
+                    <div class="text-bitcoin-primary mr-2"><i class="fa-solid fa-shield-halved"></i></div>
+                    <p>Your mnemonic is never stored on our servers.</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="text-bitcoin-primary mr-2"><i class="fa-solid fa-circle-info"></i></div>
+                    <p>For better security, consider running this tool locally from our GitHub repository.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Results Container -->
+    <div id="conversionResult" class="mb-8"></div>
+    
+    <!-- How It Works Section -->
+    <div class="bg-gradient-to-br from-gray-900 to-mtg-black rounded-xl p-6 shadow-xl mb-10">
+        <h2 class="text-xl font-magic text-bitcoin-primary mb-4">How It Works</h2>
+        
+        <div class="space-y-4 text-gray-300">
+            <div class="flex items-start">
+                <div class="text-bitcoin-primary text-xl mr-3">1</div>
+                <p>Your BIP39 mnemonic words are converted into unique indices</p>
+            </div>
+            <div class="flex items-start">
+                <div class="text-bitcoin-primary text-xl mr-3">2</div>
+                <p>Each index is mapped to a specific Magic: The Gathering card</p>
+            </div>
+            <div class="flex items-start">
+                <div class="text-bitcoin-primary text-xl mr-3">3</div>
+                <p>The resulting collection can be stored physically or digitally as an alternative backup</p>
+            </div>
+            <div class="flex items-start">
+                <div class="text-bitcoin-primary text-xl mr-3">4</div>
+                <p>Use the MTG to BIP39 converter to recover your original mnemonic phrase</p>
+            </div>
+        </div>
     </div>
 </div>
+
 <script>
     document.addEventListener('htmx:beforeRequest', function(event) {
         if (event.target.id === 'conversionForm') {
             const button = document.getElementById('convertButton');
             button.disabled = true;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Processing...';
         }
     });
+    
     document.addEventListener('htmx:afterRequest', function(event) {
         if (event.target.id === 'conversionForm') {
             const button = document.getElementById('convertButton');
             button.disabled = false;
-            button.innerHTML = 'Convert';
+            button.innerHTML = '<i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Convert to MTG Cards';
         }
     });
-    </script>
+</script>
 {% endblock %}

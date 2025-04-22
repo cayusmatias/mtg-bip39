@@ -3,30 +3,78 @@
 {% block title %}BIP39 Mnemonic Alternative Storage{% endblock %}
 
 {% block content %}
-<div class="mt-4">
-    <h1>Welcome to the BIP39 Mnemonic Alternative Storage Project</h1>
-    
-    <!-- Botões Centralizados -->
-    <div class="row justify-content-center mb-3 mt-3">
-        <div class="col-12 col-md-auto mb-2 mb-md-0">
-            <a href="bip2mtg" class="btn btn-primary">Convert BIP39 to MTG</a>
-        </div>
-        <div class="col-12 col-md-auto">
-            <a href="mtg2bip" class="btn btn-primary">Convert MTG to BIP39</a>
+<div class="max-w-4xl mx-auto">
+    <!-- Hero Section -->
+    <div class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-magic mb-6 text-bitcoin-primary">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-bitcoin-primary to-mtg-gold">
+                MTG-Bip39
+            </span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8">Store Bitcoin mnemonics as Magic: The Gathering cards</p>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-10">
+            <a href="bip2mtg" class="bg-gradient-to-r from-bitcoin-primary to-yellow-600 hover:from-yellow-600 hover:to-bitcoin-primary text-mtg-black font-bold py-3 px-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-105">
+                <i class="fa-solid fa-right-long mr-2"></i>BIP39 to MTG
+            </a>
+            <a href="mtg2bip" class="bg-gradient-to-r from-mtg-blue to-mtg-black hover:from-mtg-black hover:to-mtg-blue text-white font-bold py-3 px-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-105">
+                <i class="fa-solid fa-left-long mr-2"></i>MTG to BIP39
+            </a>
         </div>
     </div>
     
-    <p>This project offers an alternative way to store your BIP39 mnemonic phrases. By leveraging the Scryfall API, we translate your mnemonic into a list of Magic: The Gathering cards, providing an innovative and memorable method to secure your bitcoin wallets.</p>
+    <!-- Features Section -->
+    <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-gradient-to-br from-gray-900 to-bitcoin-secondary rounded-xl p-6 shadow-lg card-hover">
+            <div class="text-bitcoin-primary text-4xl mb-4">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h3 class="text-xl font-magic text-bitcoin-primary mb-2">Secure Alternative Storage</h3>
+            <p class="text-gray-300">Transform your BIP39 mnemonic phrases into memorable Magic: The Gathering cards, creating a unique and obscure backup method.</p>
+        </div>
+        
+        <div class="bg-gradient-to-br from-gray-900 to-bitcoin-secondary rounded-xl p-6 shadow-lg card-hover">
+            <div class="text-bitcoin-primary text-4xl mb-4">
+                <i class="fa-solid fa-code-branch"></i>
+            </div>
+            <h3 class="text-xl font-magic text-bitcoin-primary mb-2">Open Source</h3>
+            <p class="text-gray-300">Fully transparent code available on GitHub. Review, modify, and contribute to enhance security and functionality.</p>
+        </div>
+    </div>
     
-    <p>We are excited to announce that this project is now available on GitHub at <a href="https://github.com/cayusmatias/mtg-bip39">https://github.com/cayusmatias/mtg-bip39</a>. This open-source approach allows anyone interested to contribute, review, and modify the code for their purposes.</p>
+    <!-- Project Description -->
+    <div class="bg-gradient-to-br from-gray-900 to-mtg-black rounded-xl p-8 shadow-xl mb-12">
+        <h2 class="text-2xl font-magic text-bitcoin-primary mb-4">About The Project</h2>
+        <p class="text-gray-300 mb-4">This project offers an alternative way to store your BIP39 mnemonic phrases. By leveraging the Scryfall API, we translate your mnemonic into a list of Magic: The Gathering cards, providing an innovative and memorable method to secure your bitcoin wallets.</p>
+        
+        <p class="text-gray-300 mb-4">The application is provided "as is", under the MIT License. This license permits reuse within proprietary software provided that all copies of the licensed software include a copy of the MIT License terms and conditions and attribute the original authors.</p>
+        
+        <div class="bg-yellow-900/30 border-l-4 border-yellow-600 p-4 rounded">
+            <h3 class="text-yellow-400 font-semibold mb-2">Early Stage Project</h3>
+            <p class="text-yellow-300 text-sm">Please be advised that this project is in its initial stages and has not yet been extensively tested by the community. It is not recommended to use this application for managing accounts with actual balances.</p>
+        </div>
+    </div>
     
-    <h2>MIT License</h2>
-    <p>The application is provided "as is", under the MIT License. This license permits reuse within proprietary software provided that all copies of the licensed software include a copy of the MIT License terms and conditions and attribute the original authors.</p>
+    <!-- GitHub & Attribution -->
+    <div class="text-center mb-12">
+        <a href="https://github.com/cayusmatias/mtg-bip39" target="_blank" class="inline-block bg-gray-800 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg shadow transition duration-300">
+            <i class="fa-brands fa-github mr-2"></i>View on GitHub
+        </a>
+        
+        <div class="mt-8 text-gray-400">
+            <h3 class="text-lg font-magic text-bitcoin-primary mb-2">Special Thanks</h3>
+            <p>To <a href="https://scryfall.com" target="_blank" class="text-bitcoin-primary hover:text-yellow-400 underline">Scryfall</a> for making their API available, enabling us to develop this unique method of mnemonic storage.</p>
+        </div>
+    </div>
     
-    <h2>Early Stage Project</h2>
-    <p>Please be advised that this project is in its initial stages and has not yet been extensively tested by the community. It is not recommended to use this application for managing accounts with actual balances. Once the repository is available on GitHub, users are encouraged to download and run it locally with their data to ensure safety and privacy.</p>
-    
-    <h2>Special Thanks</h2>
-    <p>We would like to express our gratitude to <a href="https://scryfall.com" target="_blank">Scryfall</a> for making their API available, enabling us to develop this unique method of mnemonic storage.</p>
+    <!-- Visual Element -->
+    <div class="flex justify-center mb-6">
+        <div class="grid grid-cols-5 gap-1">
+            {% for color in ['bg-mtg-blue', 'bg-mtg-black', 'bg-mtg-red', 'bg-mtg-green', 'bg-mtg-white'] %}
+            <div class="{{ color }} h-1 w-full"></div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}
