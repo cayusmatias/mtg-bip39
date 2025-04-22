@@ -4,7 +4,12 @@
     
     <!-- Cards List -->
     <div class="mb-6">
-        <h3 class="text-lg font-magic text-gray-300 mb-3">Card List:</h3>
+        <div class="flex justify-between items-center mb-3">
+            <h3 class="text-lg font-magic text-gray-300">Card List:</h3>
+            <button id="download-list-btn" class="bg-bitcoin-primary hover:bg-yellow-600 text-mtg-black font-bold py-2 px-4 rounded-lg text-sm flex items-center">
+                <i class="fa-solid fa-download mr-2"></i>Download List
+            </button>
+        </div>
         <ul class="list-none space-y-2 text-gray-300">
             {{ conversion_result|safe }}
         </ul>
@@ -90,4 +95,23 @@
         const downloadUrl = `/download-image?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
         window.open(downloadUrl, '_blank');
     }
+    
+    // Function to download the card list as a text file
+    document.getElementById('download-list-btn').addEventListener('click', function() {
+        // Get the list content (strip HTML tags)
+        const listContent = document.querySelector('ul.list-none').innerText;
+        
+        // Create a blob with the text content
+        const blob = new Blob([listContent], { type: 'text/plain' });
+        
+        // Create a download link
+        const downloadLink = document.createElement('a');
+        downloadLink.href = URL.createObjectURL(blob);
+        downloadLink.download = 'mtg-card-list.txt';
+        
+        // Trigger the download
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    });
 </script>
