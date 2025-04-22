@@ -3,8 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}MTG-Bip39{% endblock %}</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>{% block title %}MTG-Bip39 | Magic The Gathering Card-Based Bitcoin Seed Phrases{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Convert Bitcoin BIP39 seed phrases to Magic: The Gathering cards and back. A secure and creative way to store your seed phrase.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}bitcoin, bip39, magic the gathering, mtg, cryptocurrency, seed phrase, mnemonic, wallet backup{% endblock %}">
+    <meta name="author" content="MTG-Bip39">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{% block canonical_url %}{{ request.url }}{% endblock %}">
+    
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{% block og_url %}{{ request.url }}{% endblock %}">
+    <meta property="og:title" content="{% block og_title %}MTG-Bip39 | Magic Cards for Bitcoin Seed Phrases{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Convert Bitcoin BIP39 seed phrases to Magic: The Gathering cards and back. A secure and creative way to store your seed phrase.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ url_for('static', filename='imgs/favicon.jpg', _external=True) }}{% endblock %}">
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{% block twitter_url %}{{ request.url }}{% endblock %}">
+    <meta name="twitter:title" content="{% block twitter_title %}MTG-Bip39 | Magic Cards for Bitcoin Seed Phrases{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Convert Bitcoin BIP39 seed phrases to Magic: The Gathering cards and back. A secure and creative way to store your seed phrase.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}{{ url_for('static', filename='imgs/favicon.jpg', _external=True) }}{% endblock %}">
+    
+    <!-- Favicon -->
     <link rel="icon" href="{{ url_for('static', filename='imgs/favicon.jpg') }}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='imgs/favicon.jpg') }}">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "MTG-Bip39",
+        "description": "Convert Bitcoin BIP39 seed phrases to Magic: The Gathering cards and back. A secure and creative way to store your seed phrase.",
+        "url": "{{ request.url_root }}",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "inLanguage": "en",
+        "author": {
+            "@type": "Person",
+            "name": "Cayus Matias"
+        }
+    }
+    </script>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -92,7 +140,7 @@
                 
                 <!-- Mobile menu button -->
                 <div class="md:hidden">
-                    <button id="menu-toggle" class="text-gray-300 hover:text-bitcoin-primary">
+                    <button id="menu-toggle" class="text-gray-300 hover:text-bitcoin-primary" aria-label="Open menu">
                         <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -115,7 +163,7 @@
         </div>
     </nav>
     
-    <div class="container mx-auto px-4 py-6 flex-grow">
+    <main class="container mx-auto px-4 py-6 flex-grow">
         {% if ENV=='dev' %}
         <div class="bg-yellow-900 border-2 border-yellow-600 rounded-lg p-4 mb-6">
             <h4 class="text-yellow-400 text-xl font-magic mb-2"><i class="fa-solid fa-triangle-exclamation mr-2"></i>Warning</h4>
@@ -125,12 +173,12 @@
         
         {% block content %}
         {% endblock %}
-    </div>
+    </main>
     
     <footer class="bg-bitcoin-dark border-t border-bitcoin-primary py-4">
         <div class="container mx-auto px-4 text-center text-gray-400">
             <p>Check out the project on GitHub: 
-                <a href="https://github.com/cayusmatias/mtg-bip39.git" target="_blank" class="text-bitcoin-primary hover:text-yellow-400 transition">
+                <a href="https://github.com/cayusmatias/mtg-bip39.git" target="_blank" class="text-bitcoin-primary hover:text-yellow-400 transition" rel="noopener">
                     <i class="fa-brands fa-github mr-1"></i>mtg-bip39
                 </a>
             </p>
