@@ -29,36 +29,36 @@ def mtg2bip():
 @app.route('/convert-bip2mtg', methods=['POST'])
 def convert_bip2mtg():
     bip39_words = request.form['bip39Words'].lower()
-    mtg_cards = ''
-    mtg_cards_imgs = ''
-    for word in bip39_words.split():
+    mtg_cards_list = []
+    mtg_cards_imgs = []
+    
+    for i, word in enumerate(bip39_words.split(), 1):
         time.sleep(0.05)
         set_code, card_number = find_card_by_word(word, SET_CODES)
         if set_code and card_number:
             card_info = get_card_from_set(set_code, card_number)
             if card_info:
                 card_name, set_code, card_number = card_info['name'], set_code, card_number
-                mtg_cards += f"<li>{card_name} <{str(card_number).zfill(3)}> [{set_code}]</li>"
-                if 'card_faces' in card_info:
-                    try:
-                        mtg_cards_imgs += f"<img class='zoom-hover rounded-3' src='{card_info['card_faces'][0]['image_uris']['normal']}' alt='{card_name}'>"
-                    except KeyError:
-                        mtg_cards_imgs += f"<img class='zoom-hover rounded-3' src='{card_info['image_uris']['normal']}' alt='{card_name}'>"
+                mtg_cards_list.append(f"<li>{i} - {card_name} <{str(card_number).zfill(3)}> [{set_code}]</li>")
+                
+                # Get the appropriate image URL
+                if 'card_faces' in card_info and 'image_uris' in card_info['card_faces'][0]:
+                    img_url = card_info['card_faces'][0]['image_uris']['normal']
                 else:
-                    mtg_cards_imgs += f"<img class='zoom-hover rounded-3' src='{card_info['image_uris']['normal']}' alt='{card_name}'>"
-                     
-    conversion_result = mtg_cards
+                    img_url = card_info['image_uris']['normal']
+                
+                # Add the card image details to the list
+                mtg_cards_imgs.append({
+                    'src': img_url,
+                    'alt': card_name,
+                    'index': i
+                })
     
-    return render_template_string("""<div class='row mb-4'>
-                                        <div class='col-md-4'>
-                                            <h3 class='text-secondary'>Cards List</h3>
-                                            <ol>{{ conversion_result|safe }}</ol>
-                                        </div>
-                                        <div class='col-md-8'>
-                                            <h3 class='text-secondary'>Cards Images</h3>{{ mtg_cards_imgs|safe }}
-                                        </div>
-                                     </div>""", 
-                                  conversion_result=conversion_result, mtg_cards_imgs=mtg_cards_imgs)
+    conversion_result = ''.join(mtg_cards_list)
+    
+    return render_template('card_results.html', 
+                          conversion_result=conversion_result, 
+                          mtg_cards_imgs=mtg_cards_imgs)
 
 
 @app.route('/convert-mtg2bip', methods=['POST'])
@@ -86,6 +86,35 @@ def convert_mtg2bip():
             return f"Invalid set code: '{set_code}' in card {index + 1}"
 
     return mnemonic
+
+
+@app.route('/download-image')
+def download_image():
+    url = request.args.get('url')
+    filename = request.args.get('filename', 'mtg-card')
+    
+    if not url:
+        return "URL parameter is required", 400
+    
+    try:
+        # Use requests to fetch the image
+        import requests
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+        
+        # Create a response with the image data
+        from flask import send_file, Response
+        from io import BytesIO
+        
+        return Response(
+            response.iter_content(chunk_size=1024),
+            headers={
+                'Content-Disposition': f'attachment; filename="{filename}.jpg"',
+                'Content-Type': response.headers.get('Content-Type', 'image/jpeg')
+            }
+        )
+    except Exception as e:
+        return f"Error downloading image: {str(e)}", 500
 
 
 if __name__ == '__main__':

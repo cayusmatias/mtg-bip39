@@ -1,0 +1,93 @@
+<!-- card_results.html -->
+<div class="bg-gradient-to-br from-gray-900 to-mtg-black rounded-xl p-6 shadow-xl mb-10">
+    <h2 class="text-xl font-magic text-bitcoin-primary mb-4">Conversion Results</h2>
+    
+    <!-- Cards List -->
+    <div class="mb-6">
+        <h3 class="text-lg font-magic text-gray-300 mb-3">Card List:</h3>
+        <ul class="list-none space-y-2 text-gray-300">
+            {{ conversion_result|safe }}
+        </ul>
+    </div>
+    
+    <!-- Cards Grid Display -->
+    <div>
+        <h3 class="text-lg font-magic text-gray-300 mb-3">Card Images:</h3>
+        <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {% for card in mtg_cards_imgs %}
+            <div class="card-hover cursor-pointer relative" onclick="openZoomModal('{{ card.src }}', '{{ card.alt }}')">
+                <!-- Card number badge -->
+                <div class="absolute top-2 left-1/2 transform -translate-x-1/2 bg-bitcoin-primary bg-opacity-70 text-mtg-black font-bold rounded-full w-8 h-8 flex items-center justify-center z-10">
+                    {{ loop.index }}
+                </div>
+                <img class="rounded-lg w-full shadow-lg border border-gray-700" src="{{ card.src }}" alt="{{ card.alt }}">
+                <!-- Download button -->
+                <button class="absolute bottom-8 right-2 bg-bitcoin-primary bg-opacity-70 text-mtg-black rounded-full w-8 h-8 flex items-center justify-center z-10" onclick="event.stopPropagation(); downloadImage('{{ card.src }}', '{{ card.alt }}');">
+                    <i class="fa-solid fa-download"></i>
+                </button>
+                <p class="text-center text-gray-400 mt-2 text-sm">{{ card.alt }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Zoom Modal -->
+<div id="zoom-modal" class="fixed inset-0 bg-black bg-opacity-90 z-50 flex items-center justify-center hidden">
+    <div class="relative max-w-4xl mx-auto p-4">
+        <button id="close-modal" class="absolute top-2 right-2 text-white bg-bitcoin-primary rounded-full w-8 h-8 flex items-center justify-center">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="zoom-image" class="max-h-[90vh] w-auto" src="" alt="">
+        <div class="text-center mt-4">
+            <span id="zoom-number" class="inline-block bg-bitcoin-primary text-mtg-black font-bold rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-2"></span>
+            <p id="zoom-caption" class="text-gray-300 text-lg"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openZoomModal(src, alt) {
+        // Find the index of the card being clicked
+        const cards = document.querySelectorAll('.card-hover');
+        let cardIndex = 0;
+        cards.forEach((card, index) => {
+            if (card.querySelector('img').src === src) {
+                cardIndex = index + 1;
+            }
+        });
+        
+        document.getElementById('zoom-image').src = src;
+        document.getElementById('zoom-caption').textContent = alt;
+        document.getElementById('zoom-number').textContent = cardIndex;
+        document.getElementById('zoom-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    document.getElementById('close-modal').addEventListener('click', function() {
+        document.getElementById('zoom-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+    });
+    
+    document.getElementById('zoom-modal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            document.getElementById('zoom-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Add keyboard support to close the modal
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('zoom-modal').classList.contains('hidden')) {
+            document.getElementById('zoom-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+    });
+    
+    // Function to download image
+    function downloadImage(url, filename) {
+        // Create a server-side proxy to handle CORS
+        const downloadUrl = `/download-image?url=${encodeURIComponent(url)}&filename=${encodeURIComponent(filename)}`;
+        window.open(downloadUrl, '_blank');
+    }
+</script>
